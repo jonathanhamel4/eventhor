@@ -12,7 +12,7 @@
             }
         ],
         "maxParticipants": "12",
-        "time": "2016-06-04 12:00:00",
+        "time": "2013-06-04 12:00:00",
         "description": "Hello this is a Slackthon Dinner. Fuck off! ",
         "reminderTime": {
             "time": [
@@ -35,10 +35,46 @@
             {
                 "name": "",
                 "attending": false
+            },
+            {
+                "name": "jonathanhamel4",
+                "attending": true
+            },
+            {
+                "name": "jonathanhamel4",
+                "attending": true
+            },
+            {
+                "name": "jonathanhamel4",
+                "attending": true
+            },
+            {
+                "name": "jonathanhamel4",
+                "attending": true
+            },
+            {
+                "name": "jonathanhamel4",
+                "attending": true
+            },
+            {
+                "name": "",
+                "attending": true
+            },
+            {
+                "name": "alex",
+                "attending": true
+            },
+            {
+                "name": "avinanda",
+                "attending": true
+            },
+            {
+                "name": "rakavy",
+                "attending": true
             }
         ],
         "maxParticipants": "12",
-        "time": "2016-06-04 12:00:00",
+        "time": "2016-06-08 12:00:00",
         "description": "Eat a steak with pizza sauce! ",
         "reminderTime": {
             "time": [
@@ -56,5 +92,22 @@
         "owner": "jonathanhamel4",
         "participants": [],
         "id": 2
+    },
+    {
+        "name": "my-event",
+        "owner": "jonathanhamel4",
+        "participants": [
+            {
+                "name": "jonathanhamel4",
+                "attending": true
+            }
+        ],
+        "id": 3
+    },
+    {
+        "name": "cbs",
+        "owner": "jonathanhamel4",
+        "participants": [],
+        "id": 4
     }
 ]
