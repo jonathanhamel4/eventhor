@@ -69,7 +69,7 @@ EventhorBot.prototype._onMessage = function (message) {
             this._acceptEvent(user, message, channel);
         }
         else {
-            this._showEvent(user, message);
+            this._showEvent(user, message, channel);
         }
     }
 };
@@ -153,23 +153,30 @@ EventhorBot.prototype._writeEvent = function (user, event, channelName) {
     var self = this;
     fs.readFile(self.dbPath, 'utf8', function (err, data) {
         events = JSON.parse(data);
-        event.id = events.length;
-        events.push(event);
-        fs.writeFile(self.dbPath, JSON.stringify(events), function (error) {
-            if (error) {
-                console.log("Error:" + error);
-            }
-            else {
-                self._replyEventCreated(user, event, channelName)
-            }
+        var dbEvent = events.filter(function (evt) {
+            return evt.name.toLowerCase() == event.name.toLowerCase();
         });
+        if (typeof dbEvent == 'undefined' || dbEvent.length == 0) {
+            event.id = events.length;
+            events.push(event);
+            fs.writeFile(self.dbPath, JSON.stringify(events), function (error) {
+                if (error) {
+                    console.log("Error:" + error);
+                }
+                else {
+                    self._replyEventCreated(user, event, channelName, false)
+                }
+            });
+        } else {
+            self._replyEventCreated(user, event, channelName, true)
+        }
     });
 };
 
-EventhorBot.prototype._replyEventCreated = function (user, event, channel) {
+EventhorBot.prototype._replyEventCreated = function (user, event, channel, error) {
     var self = this;
     var channelName = self._getChannelById(channel);
-    var msg = 'Do you want to invite people to <' + self.serverPath + self.eventPath + event.id + "|*" + event.name + '*>?\n>>> Just write " _invite event-name, list-usernames-comma-separated_ ". \n';
+    var msg = error? "There is already an event named <" + self.serverPath + self.eventPath + event.id + "|*" + event.name + "*>\n. Write _eventhor " + event.name + "_ to view it." : 'Do you want to invite people to <' + self.serverPath + self.eventPath + event.id + "|*" + event.name + '*>?\n>>> Just write " _invite event-name, list-usernames-comma-separated_ ".';
     if (channelName.name) {
         self.postMessageToChannel(channelName.name, msg, { as_user: true });
     }
@@ -238,7 +245,7 @@ EventhorBot.prototype._listEvents = function (user, channel) {
     });
 };
 
-EventhorBot.prototype._showEvent = function (user, message) {
+EventhorBot.prototype._showEvent = function (user, message, channel) {
     var self = this;
     fs.readFile(self.dbPath, 'utf8', function (err, data) {
         var events = JSON.parse(data);
@@ -259,9 +266,8 @@ EventhorBot.prototype._showEvent = function (user, message) {
                 break;
             }
         }
-
-        if (message.channel.name) {
-            self.postMessageToChannel(message.channel.name, msg, { as_user: true });
+        if (channel.name) {
+            self.postMessageToChannel(channel.name, msg, { as_user: true });
         }
         else {
             self.postMessageToUser(user.name, msg, { as_user: true });
