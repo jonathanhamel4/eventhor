@@ -110,7 +110,7 @@ EventhorBot.prototype._isFromEventhorBotBot = function (message) {
 EventhorBot.prototype._replyHelpMessage = function (user, channel) {
     var self = this;
     var text = 'Hey ' + user.name + '. Need help?\n' +
-        "Here are the available commands to you. Don't forget to always say write _eventhor_ before any command. \n" +
+        "Here are the available commands to you. Don't forget to always write _eventhor_ before any command. \n" +
         '>>> • _create event-name_ \n' +
         '• _invite event-name, list-usernames-comma-separated_ \n' +
         '• _accept event-name_ \n' +
@@ -245,10 +245,17 @@ EventhorBot.prototype._showEvent = function (user, message) {
         var msg = "There is no event named *" + message.text + "*";
         for (var i = 0; i < events.length; i++) {
             if (message.text.toLowerCase() == events[i].name.toLowerCase()) {
-                msg = "> <" + self.serverPath + self.eventPath + events[i].id + "|*" + events[i].name + "*> \n";
-                msg += "> Description: " + (events[i].description || " not available") + " \n";
-                msg += "> Date:" + (events[i].date || " not available") + " \n";
-                msg += "> Location: " + (events[i].location || " not available") + " \n";
+                msg = ">>> <" + self.serverPath + self.eventPath + events[i].id + "|*" + events[i].name + "*> \n";
+                msg += " Description: " + (events[i].description || " not available") + " \n";
+                msg += " Date:" + (events[i].date || " not available") + " \n";
+                msg += " Location: " + (events[i].location || " not available") + " \n";
+                if (events[i].participants) {
+                    msg += " Participants:\n"
+                    for (var j = 0; j < events[i].participants.length; j++) {
+                        if (events[i].participants[j].name != '' && events[i].participants[j].attending == true)
+                            msg += "> " + events[i].participants[j].name + "\n";
+                    }
+                }
                 break;
             }
         }
