@@ -25,13 +25,17 @@ app.get('/event/:id', function (req, res) {
   var admin = jsonContent[id]["owner"]
   var location = jsonContent[id]["location"];
   var desc = jsonContent[id]["description"];
+    var type = jsonContent[id]["type"];
+  var time = jsonContent[id]["time"];
   req.params.id = jsonContent[id]["id"]
   res.render('pages/admin', {
     drinks: jsonContent,
     tagline: tagline,
     admin: admin,
+    time: time,
     desc: desc,
-    location: location
+    location: location,
+    type: type,
   })
 });
 

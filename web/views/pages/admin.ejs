@@ -13,7 +13,7 @@
 		</div>
 		<!-- ## PAGE DESC ## -->
 		<div class="col-8 col">
-			<input type="text" class="qcTabDesc" value="<%= desc %>"> </div>
+			<input id="ticket-desc" type="text" class="qcTabDesc" value="<%= desc %>"> </div>
 		</div>
 </header>
 
@@ -24,11 +24,8 @@
 			
 			<!-- ## TAB LINKS ## -->
 			<ul class="nav nav-tabs clearfix">
-				<li class="active">
+				<li class="active" style="border:none;">
 					<a data-toggle="tab" href="#tab-1">ADMIN</a>
-				</li>
-				<li  style="border-right:none;">
-					<a data-toggle="tab" href="#tab-2" >LOCATION</a>
 				</li>
 				<li style="display:none;">
 					<a data-toggle="tab" href="#tab-3" >SAVED!</a>
@@ -44,8 +41,8 @@
 					<div class="qcTicketBox clearfix">
 						<div class="qcTicketHead col-4 col" style="height: 338px;">
 							<div class="box">
-								<h2>EVENT</h2>
-								<div>Event by &nbsp;<input type="text" id="ticket-name" name="ticket-name" class="requiredField" value="<%= admin %>"> </div>
+								<h2 id="typeEvent"><input type="text" id="ticket-name" name="ticket-name" class="requiredField" value="<%= type %>"> </h2>
+								<div>Event by <%= admin %> </div>
 								<a class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>SAVE CHANGES</span></a>
 							</div>
 						</div>
@@ -53,7 +50,7 @@
 							<div class="box">
 								<h3>Event Information</h3>
 								<ul class="qcTktFeatureList">
-                                    <li>Date and Time</li>
+                                    <li><div><input type="text" value="<%= time %>" style="margin-bottom:5px"> </div></li>
 									<li><div><input type="text" value="<%= location %>"> </div></li>		
 									<li>Remind Me
                                 <select name="ticket-quantity" id="ticket-quantity" class="requiredField">
