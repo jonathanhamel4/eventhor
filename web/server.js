@@ -8,11 +8,24 @@ app.set('view engine', 'ejs');
 // use res.render to load up an ejs view file
 
 // index page 
-app.get('/', function(req, res) {
+app.get('/event/:eventId', function(req, res) {
   var fs = require("fs");
   var contents = fs.readFileSync("events.json");
   var jsonContent = JSON.parse(contents);
 	
+    var tagline = jsonContent[0]["eventName"];
+    req.params.eventId = jsonContent[0]["eventId"];
+    res.render('pages/index', {
+        drinks: jsonContent,
+        tagline: tagline
+    });
+});
+
+app.get('/event/:eventName/invite/:user', function(req, res) {
+  var fs = require("fs");
+  var contents = fs.readFileSync("events.json");
+  var jsonContent = JSON.parse(contents);
+  
     var tagline = jsonContent[0]["eventName"];
 
     res.render('pages/index', {
@@ -20,8 +33,9 @@ app.get('/', function(req, res) {
         tagline: tagline
     });
 });
+
 // about page 
-app.get('/about', function(req, res) {
+app.get('/', function(req, res) {
 	res.render('pages/about');
 });
 
