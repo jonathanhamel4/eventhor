@@ -1,7 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+</head>
+<body class="container">
+
+	<header>
+		<% include ../partials/header %>
+	</header>
+
+	<main>
 <header id="qcTabTitle" class="qcContainer clearfix">
 		<!-- ## PAGE TITLE ## -->
 		<div class="col-4 col">
-			<h1>Event Title</h1>
+			<h1><%= tagline %></h1>
 		</div>
 		<!-- ## PAGE DESC ## -->
 		<div class="col-8 col">
@@ -118,3 +130,11 @@
 		<!-- ## PAGE CONTENT TABS END ## -->
 	
 	</div>
+	</main>
+
+	<footer>
+		<% include ../partials/footer %>
+	</footer>
+	
+</body>
+</html>
