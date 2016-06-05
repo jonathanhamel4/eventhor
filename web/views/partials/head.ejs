@@ -22,6 +22,33 @@ $(document).ready(function() {
        postToServer(false)
    });
    
+   $('#saveChanges').click(function () {
+       var eventName =  $('#ticket-name').val();
+	   var desc = $('#ticket-desc').val();
+	    $.ajax({
+                  type:"POST",
+                  url: "/save",
+                  data:{"eventName":eventName, "desc":desc},
+                  dataType: "text",
+                  success: function(data) {
+                      
+                      var json = $.parseJSON(data);
+                      console.log(JSON.stringify(json));
+                  },
+
+                  error: function(data) {
+                      
+                      var json = $.parseJSON(data);
+                      console.log("error");
+                  },
+                 complete: function(data) {
+                      
+                      var json = $.parseJSON(data);
+                      console.log("complete");
+                  }
+              });
+   });
+   
    function postToServer(accept){
           $.ajax({
                   type:"POST",
