@@ -13,7 +13,7 @@
 		</div>
 		<!-- ## PAGE DESC ## -->
 		<div class="col-8 col">
-			<p class="qcTabDesc"> Description blabla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, amet, natus autem doloremque alias ducimus eum minima accusamus iste nihil veritatis eius voluptatum temporibus ullam consequatur velit aspernatur. Molestiae, quasi.</p>
+			<input type="text" class="qcTabDesc" value="<%= desc %>"> </div>
 		</div>
 </header>
 
@@ -54,7 +54,7 @@
 								<h3>Event Information</h3>
 								<ul class="qcTktFeatureList">
                                     <li>Date and Time</li>
-									<li><a data-toggle="tab" href="#tab-2" original-title="">Location</a></li>		
+									<li><div><input type="text" value="<%= location %>"> </div></li>		
 									<li>Remind Me
                                 <select name="ticket-quantity" id="ticket-quantity" class="requiredField">
 											<option value="">Time</option>
