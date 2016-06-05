@@ -92,6 +92,25 @@ app.post('/accept', function (req, res) {
   res.end('{"success": "Successful", "status": 200}');
 });
 
+app.post('/save', function (req, res) {
+
+  var desc = req.body.desc;
+  var name = req.body.eventName;
+  var events;
+  fs.readFile("../data/events.json", 'utf8', function (err, data) {
+    events = JSON.parse(data);
+    events[idEvent].description = desc;
+    events[idEvent].name = name;
+
+    fs.writeFile("../data/events.json", JSON.stringify(events), function (error) {
+      if (error) {
+        console.log("Error:" + error);
+      }
+    })
+  });
+  res.end('{"success": "Successful", "status": 200}');
+});
+
 // about page 
 app.get('/', function (req, res) {
   res.render('pages/about');
