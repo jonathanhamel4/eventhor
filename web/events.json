@@ -1,7 +1,7 @@
 [
    {
-       "eventName":"Slackthon Dinner",
-       "eventId":"12324",
+       "name":"Slackthon Dinner",
+       "id":"0",
        "location":"333 Richardson",
        "room":"",
        "type":"Dinner",

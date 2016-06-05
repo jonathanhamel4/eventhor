@@ -12,25 +12,35 @@ app.get('/event/:eventId', function(req, res) {
   var fs = require("fs");
   var contents = fs.readFileSync("events.json");
   var jsonContent = JSON.parse(contents);
-	
     var tagline = jsonContent[0]["eventName"];
     req.params.eventId = jsonContent[0]["eventId"];
-    res.render('pages/index', {
+    res.render('pages/admin', {
         drinks: jsonContent,
         tagline: tagline
     });
 });
 
-app.get('/event/:eventName/invite/:user', function(req, res) {
+app.get('/event/:id/invite/:invitee', function(req, res) {
   var fs = require("fs");
-  var contents = fs.readFileSync("events.json");
+  var contents = fs.readFileSync("../data/events.json");
   var jsonContent = JSON.parse(contents);
-  
-    var tagline = jsonContent[0]["eventName"];
+  var id = req.param('id');
+  var invitee     = req.param('user');  
+  var name        = jsonContent[id]["name"];
+  var location    = jsonContent[id]["location"];
+  var type        = jsonContent[id]["type"];
+  var time        = jsonContent[id]["time"];
+  var description = jsonContent[id]["description"];
+  var room        = jsonContent[id]["room"];
 
     res.render('pages/index', {
-        drinks: jsonContent,
-        tagline: tagline
+        name: name,
+        location : location,
+        type: type,
+        time : time,
+        description: description,
+        room : room,
+        invitee: invitee
     });
 });
 
