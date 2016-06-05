@@ -169,7 +169,7 @@ EventhorBot.prototype._writeEvent = function (user, event, channelName) {
 EventhorBot.prototype._replyEventCreated = function (user, event, channel) {
     var self = this;
     var channelName = self._getChannelById(channel);
-    var msg = 'Do you want to invite people to <' + self.serverPath + self.eventPath + event.id +"|*" + event.name + '*>?\n>>> Just write " _invite event-name, list-usernames-comma-separated_ ". \n';
+    var msg = 'Do you want to invite people to <' + self.serverPath + self.eventPath + event.id + "|*" + event.name + '*>?\n>>> Just write " _invite event-name, list-usernames-comma-separated_ ". \n';
     if (channelName.name) {
         self.postMessageToChannel(channelName.name, msg, { as_user: true });
     }
@@ -216,11 +216,14 @@ EventhorBot.prototype._listEvents = function (user, channel) {
     fs.readFile(self.dbPath, 'utf8', function (err, data) {
         var events = JSON.parse(data);
         var msg = "";
+        var currentDate = new Date();
         for (var i = 0; i < events.length; i++) {
-            msg += "> <" + self.serverPath + self.eventPath + events[i].id + "|*" + events[i].name + "*> \n";
-            msg += "> Description: " + (events[i].description || " not available") + " \n";
-            msg += "> Date:" + (events[i].date || " not available") + " \n";
-            msg += "> Location: " + (events[i].location || " not available") + " \n";
+            if (typeof events[i].time == 'undefined' || new Date(events[i].time) > currentDate) {
+                msg += "> <" + self.serverPath + self.eventPath + events[i].id + "|*" + events[i].name + "*> \n";
+                msg += "> Description: " + (events[i].description || " not available") + " \n";
+                msg += "> Date:" + (events[i].date || " not available") + " \n";
+                msg += "> Location: " + (events[i].location || " not available") + " \n\n";
+            }
         }
 
         if (msg == "") {
@@ -285,7 +288,7 @@ EventhorBot.prototype._acceptEvent = function (user, message, channel) {
                 if (!participantEdited) {
                     events[i].participants.push({ name: user.name, attending: accept });
                 }
-                msg = "You were" + (accept ? " added to " : " removed from ") +"<" + self.serverPath + self.eventPath + events[i].id + "|*" + events[i].name + "*>";
+                msg = "You were" + (accept ? " added to " : " removed from ") + "<" + self.serverPath + self.eventPath + events[i].id + "|*" + events[i].name + "*>";
                 break;
             }
         }
@@ -335,7 +338,7 @@ EventhorBot.prototype._setReminders = function () {
                         var k = Schedule.scheduleJob(date, function (event) {
                             var text = ">>> <" + self.serverPath + self.eventPath + event.id + "|*" + event.name + "*>" + " will be occuring at " + event.time;
                             for (var l = 0; l < event.participants.length; l++) {
-                                if (event.participants[l].attending == true) {                                    
+                                if (event.participants[l].attending == true) {
                                     self.postMessageToUser(event.participants[l].name, text, { as_user: true });
                                 }
                             }

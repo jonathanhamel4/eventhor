@@ -22,6 +22,33 @@ $(document).ready(function() {
        postToServer(false)
    });
    
+   $('#saveChanges').click(function () {
+       var eventName =  $('#ticket-name').val();
+	   var desc = $('#ticket-desc').val();
+	    $.ajax({
+                  type:"POST",
+                  url: "/save",
+                  data:{"eventName":eventName, "desc":desc},
+                  dataType: "text",
+                  success: function(data) {
+                      
+                      var json = $.parseJSON(data);
+                      console.log(JSON.stringify(json));
+                  },
+
+                  error: function(data) {
+                      
+                      var json = $.parseJSON(data);
+                      console.log("error");
+                  },
+                 complete: function(data) {
+                      
+                      var json = $.parseJSON(data);
+                      console.log("complete");
+                  }
+              });
+   });
+   
    function postToServer(accept){
           $.ajax({
                   type:"POST",
@@ -74,7 +101,30 @@ body {
 	border-top: 5px #1DB6AD solid;
 }
 
+.nav>li>a:hover, .nav>li>a:focus {
+    text-decoration: none;
+    background-color: white;
+	color:#ff6600 !important;
+}
 
+#ticket-desc{
+   height: 61px;
+   width:99%;
+}
+
+#typeEvent{
+    margin-bottom: 30px;
+    color: #444;
+    font: 500 32px/30px "Dosis", Helvetica, sans-serif;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: 1px #008080 solid;
+}
+
+#typeEvent input{
+    width: 95%;
+}
 
 /* ----------------------------------------------------------------*/
 /* 	2. SITE NAVIGATION  */
@@ -508,11 +558,11 @@ video#qcBgVid {
 #qcPageContentTabs > ul li.active:before {
 	content: "";
 	position: absolute;
-	top: 41px;
+	top: 40px;
 	left: 0;
 	width: 100%;
 	height: 4px;
-	background: red;
+	background: #FFA500;
 }
 #qcPageContentTabs > ul li.active:after {
 	content: "";
@@ -522,7 +572,7 @@ video#qcBgVid {
 	margin-left: -4px;
 	border-left: 8px solid transparent;
 	border-right: 8px solid transparent;
-	border-top: 8px solid red;
+	border-top: 8px solid #FFA500;
 	z-index: 99;
 }
 #qcPageContentTabs > ul li > a {
@@ -532,7 +582,7 @@ video#qcBgVid {
 	text-transform: uppercase;
 }
 #qcPageContentTabs > ul li.active > a {
-	color: red;
+	color: #FFA500;
 }
 #qcPageContentTabs. .box {
 	margin-top: 0px;
@@ -803,7 +853,7 @@ video#qcBgVid {
 }
 .qcTicketAction {
 	padding: 8px 0;
-	margin-top: 30px;
+	margin-top: 20px;
 	display: block;
 	font-weight: 300;
 	color: rgba(255,255,255,0.8);
@@ -818,7 +868,7 @@ video#qcBgVid {
 	padding-bottom: 10px;
 	font: 100 15px/15px "Dosis", Helvetica, sans-serif;
 }
-.qcTicketAction:hover {
+.qcTicketAction:hover, .qcTicketAction:focus {
 	background: #ff6600;
     color: white;
     text-decoration: none;
@@ -839,12 +889,12 @@ video#qcBgVid {
 }
 .qcTktFeatureList li {
 	padding-left: 6px;
-	margin-left: 15px;
-	color: #888;
-	font-size: 15px;
-	line-height: 45px;
-	list-style: disc;
-	border-bottom: 1px #bbb dotted;
+    margin-left: 15px;
+    color: #888;
+    font-size: 15px;
+    line-height: 45px;
+    list-style: disc;
+    margin-left: 10px;
 }
 .qcTktFeatureList li:last-child {
 	border-bottom: 0;
@@ -2368,7 +2418,7 @@ ul#slide-list li a:hover {
 @media only screen and (min-width: 920px) {
 
 	.qcTicketAction {
-     margin-left: 25%;
+     margin-left: 26%;
 }
 	 
 }

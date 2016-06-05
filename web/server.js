@@ -16,6 +16,7 @@ app.use(bodyParser.json())
 // use res.render to load up an ejs view file
 
 // index page 
+
 app.get('/event/:id', function (req, res) {
   var contents = fs.readFileSync("../data/events.json");
   var jsonContent = JSON.parse(contents)
@@ -23,11 +24,19 @@ app.get('/event/:id', function (req, res) {
   idEvent = id;
   var tagline = jsonContent[id]["name"];
   var admin = jsonContent[id]["owner"]
+  var location = jsonContent[id]["location"];
+  var desc = jsonContent[id]["description"];
+    var type = jsonContent[id]["type"];
+  var time = jsonContent[id]["time"];
   req.params.id = jsonContent[id]["id"]
   res.render('pages/admin', {
     drinks: jsonContent,
     tagline: tagline,
-    admin: admin
+    admin: admin,
+    time: time,
+    desc: desc,
+    location: location,
+    type: type,
   })
 });
 
@@ -44,8 +53,7 @@ app.get('/event/:id/invite/:invitee', function (req, res) {
   var time = jsonContent[id]["time"];
   var description = jsonContent[id]["description"];
   var room = jsonContent[id]["room"];
-  var owner = jsonContent[id]["owner"];
-
+  var admin = jsonContent[id]["owner"];
   res.render('pages/index', {
     name: name,
     location: location,
@@ -54,12 +62,12 @@ app.get('/event/:id/invite/:invitee', function (req, res) {
     description: description,
     room: room,
     invitee: invitee,
-    owner: owner
+    admin: admin
   });
 });
 
 app.post('/accept', function (req, res) {
-  
+
   var attendingEvent = req.body.attending;
   var events;
   fs.readFile("../data/events.json", 'utf8', function (err, data) {
@@ -79,6 +87,25 @@ app.post('/accept', function (req, res) {
       }
       events[idEvent].participants.push({ name: invite, attending: attendingEvent });
     }
+
+    fs.writeFile("../data/events.json", JSON.stringify(events), function (error) {
+      if (error) {
+        console.log("Error:" + error);
+      }
+    })
+  });
+  res.end('{"success": "Successful", "status": 200}');
+});
+
+app.post('/save', function (req, res) {
+
+  var desc = req.body.desc;
+  var name = req.body.eventName;
+  var events;
+  fs.readFile("../data/events.json", 'utf8', function (err, data) {
+    events = JSON.parse(data);
+    events[idEvent].description = desc;
+    events[idEvent].name = name;
 
     fs.writeFile("../data/events.json", JSON.stringify(events), function (error) {
       if (error) {
