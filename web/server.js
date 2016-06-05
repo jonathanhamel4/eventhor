@@ -70,7 +70,7 @@ app.get('/event/:id/invite/:invitee', function (req, res) {
 
 app.post('/accept', function (req, res) {
 
-  var attendingEvent = req.body.attending;
+  var attendingEvent = JSON.parse(req.body.attending);
   var events;
   fs.readFile("../data/events.json", 'utf8', function (err, data) {
     events = JSON.parse(data);
