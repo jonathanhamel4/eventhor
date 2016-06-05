@@ -245,10 +245,17 @@ EventhorBot.prototype._showEvent = function (user, message) {
         var msg = "There is no event named *" + message.text + "*";
         for (var i = 0; i < events.length; i++) {
             if (message.text.toLowerCase() == events[i].name.toLowerCase()) {
-                msg = "> <" + self.serverPath + self.eventPath + events[i].id + "|*" + events[i].name + "*> \n";
-                msg += "> Description: " + (events[i].description || " not available") + " \n";
-                msg += "> Date:" + (events[i].date || " not available") + " \n";
-                msg += "> Location: " + (events[i].location || " not available") + " \n";
+                msg = ">>> <" + self.serverPath + self.eventPath + events[i].id + "|*" + events[i].name + "*> \n";
+                msg += " Description: " + (events[i].description || " not available") + " \n";
+                msg += " Date:" + (events[i].date || " not available") + " \n";
+                msg += " Location: " + (events[i].location || " not available") + " \n";
+                if (events[i].participants) {
+                    msg += " Participants:\n"
+                    for (var j = 0; j < events[i].participants.length; j++) {
+                        if (events[i].participants[j].name != '' && events[i].participants[j].attending == true)
+                            msg += "> " + events[i].participants[j].name + "\n";
+                    }
+                }
                 break;
             }
         }
