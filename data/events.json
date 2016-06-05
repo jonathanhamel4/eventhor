@@ -1,18 +1,1 @@
-[
-   {
-       "eventName":"Slackthon Dinner",
-       "eventId":"12324",
-       "location":"333 Richardson",
-       "room":"",
-       "type":"Dinner",
-       "participants":[{
-           "name":"",
-           "email":"",
-           "attending":""
-       }],
-       "maxParticipants":"12",
-       "time":"June 4, 2016",
-       "description":"Hello this is a Slackthon Dinner. Fuck off! ",
-       "reminderTime":"3"
-   }
-]
+[{"name":"Slackthon Dinner","id":"12324","location":"333 Richardson","room":"","type":"Dinner","participants":[{"name":"jonathanhamel4","attending":true},{"name":"rakavy","attending":false}],"maxParticipants":"12","time":"2016-06-05 01:55:00","description":"Hello this is a Slackthon Dinner. Fuck off! ","reminderTime":{"time":[1,2],"isSet":true},"owner":"avinanda"},{"name":"Slackthon Dinner2","id":"12345","location":"333 Richardson","room":"","type":"Dinner","participants":[{"name":"jonathanhamel4","attending":true},{"name":"rakavy","attending":false}],"maxParticipants":"12","time":"2016-06-05 01:51:00","description":"Hello this is a Slackthon Dinner. Fuck off! ","reminderTime":{"time":[1,5],"isSet":true},"owner":"avinanda"},{"name":"Slackathon event","owner":"jonathanhamel4","id":2,"participants":[{"name":"jonathanhamel4","attending":false}]},{"name":"bbb","owner":"jonathanhamel4","id":3,"participants":[{"name":"jonathanhamel4","attending":false}]},{"name":"bbb","owner":"jonathanhamel4","id":4},{"name":"bbb","owner":"jonathanhamel4","id":5},{"name":"bbb","owner":"jonathanhamel4","id":6}]
