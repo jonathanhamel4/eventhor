@@ -11,46 +11,32 @@ app.set('view engine', 'ejs');
 app.get('/event/:id', function(req, res) {
   var fs = require("fs");
   var contents = fs.readFileSync("events.json");
-  var jsonContent = JSON.parse(contents);
-<<<<<<< HEAD
-	var admin = jsonContent[0]["owner"];
-    var tagline = jsonContent[0]["name"];
-    req.params.id = jsonContent[0]["id"];
-=======
-    var tagline = jsonContent[0]["eventName"];
-    req.params.eventId = jsonContent[0]["eventId"];
->>>>>>> origin/master
-    res.render('pages/admin', {
+   var jsonContent = JSON.parse(contents)
+   var id = req.param('id');
+     var tagline = jsonContent[id]["name"];
+     var admin = jsonContent[id]["owner"]
+    req.params.id = jsonContent[id]["id"]
+     res.render('pages/admin', {
         drinks: jsonContent,
         tagline: tagline,
         admin: admin
-    });
-    
-
+    })
 });
 
-<<<<<<< HEAD
-app.get('/event/:Name/invite/:user', function(req, res) {
-=======
 app.get('/event/:id/invite/:invitee', function(req, res) {
->>>>>>> origin/master
-  var fs = require("fs");
+     var fs = require("fs");
   var contents = fs.readFileSync("../data/events.json");
   var jsonContent = JSON.parse(contents);
-<<<<<<< HEAD
-  
-    var tagline = jsonContent[0]["Name"];
-=======
   var id = req.param('id');
-  var invitee     = req.param('user');  
+ 
+    var invitee     = req.param('user');  
   var name        = jsonContent[id]["name"];
   var location    = jsonContent[id]["location"];
   var type        = jsonContent[id]["type"];
   var time        = jsonContent[id]["time"];
   var description = jsonContent[id]["description"];
-  var room        = jsonContent[id]["room"];
->>>>>>> origin/master
-
+   var room        = jsonContent[id]["room"];
+  
     res.render('pages/index', {
         name: name,
         location : location,
