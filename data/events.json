@@ -24,31 +24,31 @@
            "isSet": true
        },
        "owner": "avinanda"
-   }
+   },
       {
-       "name": "Eat me",
-       "id": "1",
-       "location": "3 Rasd",
-       "room": "23",
-       "type": "Lunch",
-       "participants": [
-           {
-               "name": "",
-               "attending": false
-           }
-       ],
-       "maxParticipants": "12",
-       "time": "2016-06-04 12:00:00",
-       "description": "Eat a steak with pizza sauce! ",
-       "reminderTime": {
-           "time": [
-               1,
-               2,
-               3,
-               4
-           ],
-           "isSet": true
-       },
-       "owner": "avinanda"
-   }
+         "name": "Eat me",
+         "id": "1",
+         "location": "3 Rasd",
+         "room": "23",
+         "type": "Lunch",
+         "participants": [
+             {
+                 "name": "",
+                 "attending": false
+             }
+         ],
+         "maxParticipants": "12",
+         "time": "2016-06-04 12:00:00",
+         "description": "Eat a steak with pizza sauce! ",
+         "reminderTime": {
+             "time": [
+                 1,
+                 2,
+                 3,
+                 4
+             ],
+             "isSet": true
+         },
+         "owner": "avinanda"
+     }
 ]
