@@ -8,12 +8,12 @@
 	<main>
 <header id="qcTabTitle" class="qcContainer clearfix">
 		<!-- ## PAGE TITLE ## -->
-		<div class="col-4 col">
-			<h1><%= name %></h1>
+		<div class="title col-4 col">
+			<h1><input type="text" id="ticket-name" name="ticket-name" class="requiredField" value="<%= tagline %>"></h1>
 		</div>
 		<!-- ## PAGE DESC ## -->
 		<div class="col-8 col">
-			<p class="qcTabDesc"> <%= description %></p>
+			<p class="qcTabDesc"> Description blabla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, amet, natus autem doloremque alias ducimus eum minima accusamus iste nihil veritatis eius voluptatum temporibus ullam consequatur velit aspernatur. Molestiae, quasi.</p>
 		</div>
 </header>
 
@@ -25,10 +25,13 @@
 			<!-- ## TAB LINKS ## -->
 			<ul class="nav nav-tabs clearfix">
 				<li class="active">
-					<a data-toggle="tab" href="#tab-1">EVENT</a>
+					<a data-toggle="tab" href="#tab-1">ADMIN</a>
 				</li>
 				<li  style="border-right:none;">
 					<a data-toggle="tab" href="#tab-2" >LOCATION</a>
+				</li>
+				<li style="display:none;">
+					<a data-toggle="tab" href="#tab-3" >SAVED!</a>
 				</li>
     		</ul>
     		
@@ -41,18 +44,17 @@
 					<div class="qcTicketBox clearfix">
 						<div class="qcTicketHead col-4 col" style="height: 338px;">
 							<div class="box">
-								<h2><%= type %></h2>
-								<p>by <%= owner %> </p>
-								<a class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>ATTENDING</span></a>
-                                <a class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>NOT ATTENDING</span></a>
+								<h2>EVENT</h2>
+								<div>Event by &nbsp;<input type="text" id="ticket-name" name="ticket-name" class="requiredField" value="<%= admin %>"> </div>
+								<a class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>SAVE CHANGES</span></a>
 							</div>
 						</div>
 						<div class="col-8 col" style="height: 338px;">
 							<div class="box">
 								<h3>Event Information</h3>
 								<ul class="qcTktFeatureList">
-                                    <li>Time: <%= time %></li>
-									<li><a data-toggle="tab" href="#tab-2" original-title="">Location: <%=location%> <%=room%></a></li>		
+                                    <li>Date and Time</li>
+									<li><a data-toggle="tab" href="#tab-2" original-title="">Location</a></li>		
 									<li>Remind Me
                                 <select name="ticket-quantity" id="ticket-quantity" class="requiredField">
 											<option value="">Time</option>
@@ -107,7 +109,7 @@
 					<div class="qcTicketBox clearfix">
 						<div class="qcTicketHead col-4 col" style="height: 338px;">
 							<div class="box">
-								<h2>Location</h2>
+								<h2>SAVED!</h2>
 								<p>Choose a reminder time </p>
                                 <select name="ticket-quantity" id="ticket-quantity" class="requiredField">
 											<option value="">Time</option>

@@ -1,10 +1,17 @@
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
 <title>Eventhor</title>
 
 <!-- CSS -->
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../stylesheets/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
 <style>
 
@@ -56,6 +63,12 @@ body {
 	padding: 95px 0;
 	text-align: center;
 }
+
+.title input
+{
+    width: 99%;
+}
+
 #qcSiteNav h4 {
 	margin-bottom: 35px;
 	color: #bbb;
@@ -719,14 +732,14 @@ video#qcBgVid {
 .qcTicketBox {
 	position: relative;
 	margin-top: 30px;
-	border: 1px #FFBF95 solid;
+	border: 1px #008080 solid;
 	overflow: hidden;
 }
 .qcTicketBox .col-4 {
 	margin-left: -1px;
 	text-align: center;
-	background: #FFF5EE;
-	border-right: 1px #FFBF95 solid;
+	background: #66CDAA;
+	border-right: 1px #008080 solid;
 }
 #qcPageContentTabs .qcTicketBox .box {
 	padding: 40px;
@@ -740,7 +753,7 @@ video#qcBgVid {
 	letter-spacing: 0.02em;
 	text-transform: uppercase;
 	padding-bottom: 40px;
-	border-bottom: 1px #FFBF95 solid;	
+	border-bottom: 1px #008080 solid;	
 }
 .qcTicketHead p {
 	color: #999;
@@ -766,9 +779,9 @@ video#qcBgVid {
 	font: 100 15px/15px "Dosis", Helvetica, sans-serif;
 }
 .qcTicketAction:hover {
-	background: red;
-  color: white;
-   text-decoration: none;
+	background: #ff6600;
+    color: white;
+    text-decoration: none;
 }
 .qcTicketBox h3 {
 	display: inline-block;
@@ -2174,6 +2187,10 @@ ul#slide-list li a:hover {
 
 @media only screen and (min-width: 768px) and (max-width: 1080px) {
 
+.qcTicketAction {
+    MARGIN-LEFT: 20%;
+}
+
 	.qcContainer {
 		margin: 0 50px;
 	}
@@ -2308,7 +2325,13 @@ ul#slide-list li a:hover {
 	
 }
 
+@media only screen and (min-width: 920px) {
 
+	.qcTicketAction {
+     margin-left: 25%;
+}
+	 
+}
 
 /* === 11.2 TABLET-2 === */
 
@@ -2552,7 +2575,7 @@ ul#slide-list li a:hover {
     }
 	
 	.qcTicketAction {
-     margin-left: 10%;
+     margin-left: 38%;
 }
     
 	#qcFooterLogo {
