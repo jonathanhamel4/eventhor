@@ -4,12 +4,13 @@ var util = require('util');
 var path = require('path');
 var fs = require('fs');
 var Bot = require('slackbots');
+var Entities = require('html-entities').XmlEntities;
 
 var EventhorBot = function Constructor(settings) {
     this.settings = settings;
     this.settings.name = this.settings.name || 'eventhor';
     this.dbPath = "../../data/events.json";
-
+    this.entities = new Entities();
     this.user = null;
 };
 
@@ -36,59 +37,53 @@ EventhorBot.prototype._loadBotUser = function () {
     })[0];
 };
 
-/*EventhorBot.prototype._welcomeMessage = function () {
-    var newChannels = [];
-    var oldChannels;
-    var self = this;
-    fs.readFile('../../data/invites.json', 'utf8', function (err, data) {
-        if (err) { console.log(err); return; }
-        var channels = self.channels;
-        oldChannels = JSON.parse(data);
-        for (var i = 0; i < channels.length; i++) {
-            var channelFound = false;
-            var isMember = channels[i].is_member
-            if (isMember) {
-                for (var j = 0; j < oldChannels.length; j++) {
-                    if (oldChannels[j] == channels[i].id && channels[i].is_member === true) {
-                        channelFound = true;
-                    }
-                }
-            }
-            if (!channelFound && isMember) {
-                self.postMessageToChannel(channels[i].name, 'Hello World', { as_user: true });
-                newChannels.push(channels[i].id);
-            }
-        }
-        var updatedChannels = newChannels.concat(oldChannels);
-        fs.writeFile('../../data/invites.json', JSON.stringify(updatedChannels), function (error) { console.log(error); });
-    });
-};*/
-
-
 EventhorBot.prototype._onMessage = function (message) {
-    if (!this.name) {
+    if (this.user === null) {
         this.loadBotUser();
     }
+
     if (this._isChatMessage(message) &&
-        this._isChannelConversation(message) &&
-        !this._isFromEventhorBotBot(message)
+        !this._isFromEventhorBotBot(message) &&
+        message.text.toLowerCase().indexOf("eventhor") == 0
     ) {
+        message.text = message.text.substring(8).trim();
         var channel = this._getChannelById(message.channel);
-        var user = self._getUserById(message.user);
+        var user = this._getUserById(message.user);
         if (this._isInvokingEventhor(message)) {
             this._replyHelpMessage(user, channel);
         }
         else if (this._isCreating(message)) {
-            //this._createEvent(message);
+            this._createEvent(user, message);
+        }
+        else if (this._isInviting(message)) {
+            this._inviteUser(user, message);
+        }
+        else if (this._isListing(message)) {
+            this._listEvents(user, channel);
+        }
+        else if (this._isAccepting(message)) {
+            this._acceptEvent(user, message, channel);
         }
         else {
-            this._replyToUser(channel);
+            this._showEvent(user, message);
         }
     }
 };
 
 EventhorBot.prototype._isInvokingEventhor = function (message) {
-    return message.text.trim().toLowerCase() === "eventhor";
+    return message.text.trim().toLowerCase() == "help" || message.text.trim().toLowerCase() == "";
+};
+
+EventhorBot.prototype._isInviting = function (message) {
+    return message.text.toLowerCase().indexOf("invite") > -1;
+};
+
+EventhorBot.prototype._isAccepting = function (message) {
+    return message.text.toLowerCase().indexOf("accept") > -1 || message.text.toLowerCase().indexOf("decline") > -1;
+};
+
+EventhorBot.prototype._isListing = function (message) {
+    return message.text.toLowerCase().indexOf("list") > -1;
 };
 
 EventhorBot.prototype._isCreating = function (message) {
@@ -108,26 +103,28 @@ EventhorBot.prototype._isFromEventhorBotBot = function (message) {
     return message.user === this.user.id;
 };
 
-EventhorBot.prototype._replyToUser = function (channel) {
-    var self = this;
-    self.postMessageToChannel(channel.name, "I am listening to you", { as_user: true });
-};
-
 EventhorBot.prototype._replyHelpMessage = function (user, channel) {
     var self = this;
-    self.postMessageToChannel(channel.name,
-        'Hey ' + user.name + '. Need help?\n' +
-        'Here are the available commands to you:\n' +
-        '>>> • _create <event> <eventType> <date> <time>_\n' +
-        '• _invite <name> <event>_'
-        , { as_user: true });
+    var text = 'Hey ' + user.name + '. Need help?\n' +
+        "Here are the available commands to you. Don't forget to always say write _eventhor_ before any command. \n" +
+        '>>> • _create event-name_ \n' +
+        '• _invite event-name, list-usernames-comma-separated_ \n' +
+        '• _accept event-name_ \n' +
+        '• _decline event-name_ \n' +
+        '• _list_ \n' +
+        '• _event-name_ \n';
+    if (channel.name) {
+        self.postMessageToChannel(channel.name, text, { as_user: true });
+    }
+    else {
+        self.postMessageToUser(user.name, text, { as_user: true });
+    }
 };
 
 EventhorBot.prototype._getChannelById = function (channelId) {
-
     return this.channels.filter(function (item) {
         return item.id === channelId;
-    })[0];
+    })[0] || channelId;
 };
 
 EventhorBot.prototype._getUserById = function (userId) {
@@ -137,22 +134,182 @@ EventhorBot.prototype._getUserById = function (userId) {
     })[0];
 };
 
-/*EventhorBot.prototype._createEvent = function (user, message) {
+EventhorBot.prototype._createEvent = function (user, message) {
     var self = this;
-    var text = message.text;
-    var rx = /<(.*?)>/g;
-    var params = text.match(rx);
+    var text = message.text.substr(6).trim();
     var event = {};
-    event.name = params[0].substring(1, params[0].length - 2).trim();
-    event.type = params[1].substring(1, params[0].length - 2).trim();
-    event.date = params[2].substring(1, params[0].length - 2).trim();
-    event.time = params[3].substring(1, params[0].length - 2).trim();
+    event.name = text;
     event.owner = user.name;
-    self._writeEvent(event);
+    self._writeEvent(user, event, message.channel);
 };
 
-EventhorBot.prototype._writeEvent = function (event) {
-    var events = [];
-    event.push(event);    
-    fs.writeFile(this.dbPath,JSON.stringify(events), function(error){console.log(error);})
-};*/
+EventhorBot.prototype._writeEvent = function (user, event, channelName) {
+    var events;
+    var self = this;
+    fs.readFile(self.dbPath, 'utf8', function (err, data) {
+        events = JSON.parse(data);
+        event.id = events.length;
+        events.push(event);
+        fs.writeFile(self.dbPath, JSON.stringify(events), function (error) {
+            if (error) {
+                console.log("Error:" + error);
+            }
+            else {
+                self._replyEventCreated(user, event, channelName)
+            }
+        })
+    });
+};
+
+EventhorBot.prototype._replyEventCreated = function (user, event, channel) {
+    var self = this;
+    var channelName = self._getChannelById(channel);
+    var msg = 'Do you want to invite people to *' + event.name + '*?\n>>> Just write " _invite event-name, list-usernames-comma-separated_ ". \n To complete the event description, go to: http://localhost:3000/event/' + event.id + '';
+    if (channel.name) {
+        self.postMessageToChannel(channelName.name, msg, { as_user: true });
+    }
+    else {
+        self.postMessageToUser(user.name, msg, { as_user: true });
+    }
+};
+
+EventhorBot.prototype._inviteUser = function (user, message) {
+    var self = this;
+    var msg = message.text.substr(6).trim();
+    var eventName = msg.substring(0, msg.indexOf(","));
+    var userNames = msg.substring(msg.indexOf(",") + 1).split(",");
+    var invites = [];
+    for (var i = 0; i < userNames.length; i++) {
+        invites.push({
+            eventName: eventName,
+            user: userNames[i].trim(),
+            owner: user.name
+        });
+    }
+    self._sendInvite(invites);
+};
+
+EventhorBot.prototype._sendInvite = function (invites) {
+    var self = this;
+    fs.readFile(self.dbPath, 'utf8', function (err, data) {
+        var events = JSON.parse(data);
+        for (var i = 0; i < events.length; i++) {
+            if (invites[0].eventName.trim().toLowerCase() == events[i].name.trim().toLowerCase()) {
+                for (var j = 0; j < invites.length; j++) {
+                    var msg = invites[j].owner + ' just sent you an invite to *' + invites[j].eventName + '*!' +
+                        '\n>>>To answer, just say " _accept event name_ "\n' +
+                        'or just follow this link: http://localhost:3000/' + 'event/' + events[i].id + '/invite/' + invites[j].user;
+                    self.postMessageToUser(invites[j].user, msg, { as_user: true });
+                }
+                break;
+            }
+        }
+    });
+};
+
+EventhorBot.prototype._listEvents = function (user, channel) {
+    var self = this;
+    fs.readFile(self.dbPath, 'utf8', function (err, data) {
+        var events = JSON.parse(data);
+        var msg = "";
+        for (var i = 0; i < events.length; i++) {
+            msg += "> *" + events[i].name + "* \n";
+            msg += "> Description: " + (events[i].description || " not available") + " \n";
+            msg += "> Date:" + (events[i].date || " not available") + " \n";
+            msg += "> Location: " + (events[i].location || " not available") + " \n";
+            msg += "> Link: http://localhost:3000/event/" + events[i].id + " \n\n";
+        }
+
+        if (msg == "") {
+            msg = "There are no events";
+        }
+        if (channel.name) {
+            self.postMessageToChannel(channel.name, msg, { as_user: true });
+        }
+        else {
+            self.postMessageToUser(user.name, msg, { as_user: true });
+        }
+    });
+};
+
+EventhorBot.prototype._showEvent = function (user, message) {
+    var self = this;
+    fs.readFile(self.dbPath, 'utf8', function (err, data) {
+        var events = JSON.parse(data);
+        var msg = "There is no event named *" + message.text + "*";
+        for (var i = 0; i < events.length; i++) {
+            if (message.text.toLowerCase() == events[i].name) {
+                msg = "> *" + events[i].name + "* \n";
+                msg += "> Description: " + (events[i].description || " not available") + " \n";
+                msg += "> Date:" + (events[i].date || " not available") + " \n";
+                msg += "> Location: " + (events[i].location || " not available") + " \n";
+                msg += "> Link: http://localhost:3000/event/" + events[i].id + " \n";
+                break;
+            }
+        }
+
+        if (message.channel.name) {
+            self.postMessageToChannel(message.channel.name, msg, { as_user: true });
+        }
+        else {
+            self.postMessageToUser(user.name, msg, { as_user: true });
+        }
+    });
+};
+
+EventhorBot.prototype._acceptEvent = function (user, message, channel) {
+    var self = this;
+    var accept = message.text.toLowerCase().indexOf("accept") > -1;
+    var indexOfSub = accept ? 6 : 7;
+    fs.readFile(self.dbPath, 'utf8', function (err, data) {
+        var events = JSON.parse(data);
+        message.text = message.text.substring(indexOfSub).trim();
+        var msg = "There is no event named *" + message.text + "*";
+        for (var i = 0; i < events.length; i++) {
+            if (message.text.toLowerCase() == events[i].name) {
+                var participantEdited = false;
+                if (events[i].participants) {
+                    for (var j = 0; j < events[i].participants.length; j++) {
+                        if (events[i].participants[j].name.toLowerCase() == user.name.toLowerCase()){
+                            events[i].participants[j].attending = accept;
+                            participantEdited = true;
+                            break;
+                        }
+                           
+                    }
+                } else {
+                    events[i].participants = [];                    
+                }
+                
+                if(!participantEdited){
+                    events[i].participants.push({ name: user.name, attending: accept });
+                }
+                msg = "You were" + (accept ? " added to *" :  " removed from *") + events[i].name + "*";
+                break;
+            }
+        }
+        
+        fs.writeFile(self.dbPath, JSON.stringify(events), function (error) {
+            if (error) {
+                console.log("Error:" + error);
+            }
+            else {
+                self._replyEventAccepted(user, channel, msg)
+            }
+        })
+    });
+};
+
+EventhorBot.prototype._replyEventAccepted = function (user, channel, txt) {
+    var self = this;
+    var channelName = self._getChannelById(channel);
+    if (channel.name) {
+        self.postMessageToChannel(channelName.name, txt, { as_user: true });
+    }
+    else {
+        self.postMessageToUser(user.name, txt, { as_user: true });
+    }
+};
+
+
+

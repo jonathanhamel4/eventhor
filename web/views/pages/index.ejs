@@ -5,10 +5,6 @@
 </head>
 <body class="container">
 
-	<header>
-		<% include ../partials/header %>
-	</header>
-
 	<main>
 <header id="qcTabTitle" class="qcContainer clearfix">
 		<!-- ## PAGE TITLE ## -->
@@ -31,11 +27,11 @@
 				<li class="active">
 					<a data-toggle="tab" href="#tab-1">EVENT</a>
 				</li>
-				<li>
-					<a data-toggle="tab" href="#tab-2">LOCATION</a>
+				<li  style="border-right:none;">
+					<a data-toggle="tab" href="#tab-2" >LOCATION</a>
 				</li>
-				<li>
-					<a data-toggle="tab" href="#tab-3">RSVP</a>
+				<li style="display:none;">
+					<a data-toggle="tab" href="#tab-3" >RSVP</a>
 				</li>
     		</ul>
     		
@@ -50,7 +46,8 @@
 							<div class="box">
 								<h2>EVENT</h2>
 								<p>Event by </p>
-								<a class="qcTicketAction" href="#tab-3"><span>RSVP Now</span></a>
+								<a class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>ATTENDING</span></a>
+                                <a class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>NOT ATTENDING</span></a>
 							</div>
 						</div>
 						<div class="col-8 col" style="height: 338px;">
@@ -58,8 +55,14 @@
 								<h3>Event Information</h3>
 								<ul class="qcTktFeatureList">
                                     <li>Date and Time</li>
-									<li><a href="#tab-2" original-title="">Location</a></li>		
-									<li>Other</li>
+									<li><a data-toggle="tab" href="#tab-2" original-title="">Location</a></li>		
+									<li>Remind Me
+                                <select name="ticket-quantity" id="ticket-quantity" class="requiredField">
+											<option value="">Time</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+								</select> before</li>
 								</ul>
 								
 							</div>
