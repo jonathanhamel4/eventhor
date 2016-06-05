@@ -2,7 +2,7 @@
 
 var EventhorBot = require('../lib/eventhor');
 
-var token = "YOUR TOKEN";
+var token = "KEY";
 //var dbPath = process.env.BOT_DB_PATH;
 var name = "eventhor";
 

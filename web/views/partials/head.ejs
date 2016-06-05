@@ -12,14 +12,46 @@
 <link rel="stylesheet" href="../stylesheets/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+     $('#accept').click(function () {
+       postToServer(true)
+   });
+   
+        $('#decline').click(function () {
+       postToServer(false)
+   });
+   
+   function postToServer(accept){
+          $.ajax({
+                  type:"POST",
+                  url: "/accept",
+                  data:{"attending":accept},
+                  dataType: "text",
+                  success: function(data) {
+                      
+                      var json = $.parseJSON(data);
+                      console.log(JSON.stringify(json));
+                  },
 
+                  error: function(data) {
+                      
+                      var json = $.parseJSON(data);
+                      console.log("error");
+                  },
+                 complete: function(data) {
+                      
+                      var json = $.parseJSON(data);
+                      console.log("complete");
+                  }
+              });
+   }
+});
+</script>
 <style>
 
 
-@import url('./architecture.css');
-@import url('./icon-fonts/fontello.css');
-@import url('./menu-fonts/menu.css');
-@import url('./prettyPhoto.css');
+
 
 
 /* ----------------------------------------------------------------*/

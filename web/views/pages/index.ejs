@@ -30,9 +30,6 @@
 				<li  style="border-right:none;">
 					<a data-toggle="tab" href="#tab-2" >LOCATION</a>
 				</li>
-				<li style="display:none;">
-					<a data-toggle="tab" href="#tab-3" >RSVP</a>
-				</li>
     		</ul>
     		
     		<div class="tab-content">
@@ -44,18 +41,26 @@
 					<div class="qcTicketBox clearfix">
 						<div class="qcTicketHead col-4 col" style="height: 338px;">
 							<div class="box">
-								<h2>EVENT</h2>
-								<p>Event by <%= admin %> </p>
-								<a class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>ATTENDING</span></a>
-                                <a class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>NOT ATTENDING</span></a>
+
+								<h2><%= type %></h2>
+								<p>by <%= admin %> </p>
+								<a id="accept" class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>ATTENDING</span></a>
+                                <a id="decline" class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>NOT ATTENDING</span></a>
 							</div>
 						</div>
 						<div class="col-8 col" style="height: 338px;">
 							<div class="box">
 								<h3>Event Information</h3>
 								<ul class="qcTktFeatureList">
-                                    <li>Date and Time</li>
-									<li><a data-toggle="tab" href="#tab-2" original-title="">Location</a></li>		
+                                    <li>Time: <%= time %></li>
+									<li><a data-toggle="tab" href="#tab-2" original-title="">Location: <%=location%> <%=room%></a></li>		
+									<li>Remind Me
+                                <select name="ticket-quantity" id="ticket-quantity" class="requiredField">
+											<option value="">Time</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+								</select> before</li>
 								</ul>
 								
 							</div>
