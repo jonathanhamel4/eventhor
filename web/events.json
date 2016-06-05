@@ -1,5 +1,6 @@
 [
    {
+<<<<<<< HEAD
        "name": "Slackthon Dinner",
        "id": "12324",
        "location": "333 Richardson",
@@ -24,5 +25,21 @@
            "isSet": true
        },
        "owner": "avinanda"
+=======
+       "name":"Slackthon Dinner",
+       "id":"0",
+       "location":"333 Richardson",
+       "room":"",
+       "type":"Dinner",
+       "participants":[{
+           "name":"",
+           "email":"",
+           "attending":""
+       }],
+       "maxParticipants":"12",
+       "time":"June 4, 2016",
+       "description":"Hello this is a Slackthon Dinner. Fuck off! ",
+       "reminderTime":"3"
+>>>>>>> origin/master
    }
 ]
