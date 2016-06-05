@@ -51,9 +51,13 @@ $(document).ready(function() {
                   data:{"attending":accept},
                   dataType: "text",
                   success: function(data) {
-                      
-                      var json = $.parseJSON(data);
-                      console.log(JSON.stringify(json));
+                  
+				  if(accept==true)    
+                     $('#accepted').css({"color":"green", "border":"none"}).text("You have accepted the invitation!");
+				
+				  if(accept==false)
+				     $('#accepted').css({"color":"orange", "border":"none"}).text("You have declined the invitation!");
+                  
                   },
 
                   error: function(data) {
@@ -243,6 +247,10 @@ body {
 }
 #qcOpenNav:hover, #qcCloseNav:hover {
 	opacity: 1;
+}
+
+#eventhor{
+   color:orange;
 }
 
 
@@ -845,7 +853,7 @@ video#qcBgVid {
 }
 .qcTicketHead h2 {
 	margin-top: 5px;
-	margin-bottom: 30px;
+	margin-bottom: 15px;
 	color: #444;
 	font: 500 32px/30px "Dosis", Helvetica, sans-serif;
 	letter-spacing: 0.02em;

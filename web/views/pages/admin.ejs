@@ -7,13 +7,15 @@
 
 	<main>
 <header id="qcTabTitle" class="qcContainer clearfix">
-		<!-- ## PAGE TITLE ## -->
-		<div class="title col-4 col">
-			<h1><input type="text" id="ticket-name" placeholder="Event Name" name="ticket-name" class="requiredField" value="<%= tagline %>"></h1>
+		
+		<div class="col-8 col">
+			<h1><a id="eventhor" href="about.ejs">
+					EVEN<b class="thor">THOR<p>
+				</a></h1>
 		</div>
 		<!-- ## PAGE DESC ## -->
-		<div class="col-8 col">
-			<input id="ticket-desc" placeholder="Event description" type="text" class="qcTabDesc" value="<%= desc%>"> </div>
+		<div class="col-4 col">
+			 <p id="saveSuccess"><p>
 		</div>
 </header>
 
@@ -25,7 +27,7 @@
 			<!-- ## TAB LINKS ## -->
 			<ul class="nav nav-tabs clearfix">
 				<li class="active" style="border:none;">
-					<a data-toggle="tab" href="#tab-1">ADMIN</a>
+					<a data-toggle="tab" href="#tab-1">EVENT</a>
 				</li>
 				<li style="display:none;">
 					<a data-toggle="tab" href="#tab-3" >SAVED!</a>
@@ -42,7 +44,7 @@
 						<div class="qcTicketHead col-4 col" style="height: 338px;">
 							<div class="box">
 
-								<h2 id="typeEvent"><input id="type-event" placeholder="Type of Event" type="text" id="ticket-name" name="ticket-name" class="requiredField" value="<%= type %>"> </h2>
+								<h2 id="typeEvent"><input type="text" id="ticket-name" placeholder="Event Name" name="ticket-name" class="requiredField" value="<%= tagline %>"> </h2>
 								<div id="admin">Event by <%= admin %> </div>
 								<a id="saveChanges" class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>SAVE CHANGES</span></a>
 
@@ -52,6 +54,7 @@
 							<div class="box">
 								<h3>Event Information</h3>
 								<ul class="qcTktFeatureList">
+								    <li><div><input id="ticket-desc" placeholder="Event description" type="text" class="qcTabDesc" value="<%= desc%>"></div></li>
                                     <li><div><input id="event-time" placeholder="Date & Time" type="text" value="<%= time %>" style="margin-bottom:5px"> </div></li>
 									<li><div><input id="event-location" placeholder="Location" type="text" value="<%= location %>"> </div></li>		
 									<li>Remind Me
@@ -60,9 +63,9 @@
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
-								</select> before</li>			
+								</select> before</li>
 								</ul>
-								<h3 id="saveSuccess"></h3>
+								
 							</div>
 						</div>
 					</div>

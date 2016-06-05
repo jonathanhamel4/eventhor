@@ -4,16 +4,18 @@
 	<% include ../partials/head %>
 </head>
 <body class="container">
-
 	<main>
 <header id="qcTabTitle" class="qcContainer clearfix">
 		<!-- ## PAGE TITLE ## -->
-		<div class="col-4 col">
-			<h1><%= name %></h1>
+		
+		<div class="col-8 col">
+			<h1><a id="eventhor" href="about.ejs">
+					EVEN<b class="thor">THOR<p>
+				</a></h1>
 		</div>
 		<!-- ## PAGE DESC ## -->
-		<div class="col-8 col">
-			<p class="qcTabDesc"> <%= description %></p>
+		<div class="col-4 col">
+			 <p id="accepted"><p>
 		</div>
 </header>
 
@@ -27,7 +29,7 @@
 				<li class="active">
 					<a data-toggle="tab" href="#tab-1">EVENT</a>
 				</li>
-				<li  style="border-right:none; display:none">
+				<li  style="border-right:none;">
 					<a data-toggle="tab" href="#tab-2" >LOCATION</a>
 				</li>
     		</ul>
@@ -42,8 +44,8 @@
 						<div class="qcTicketHead col-4 col" style="height: 338px;">
 							<div class="box">
 
-								<h2><%= type %></h2>
-								<p>by <%= admin %> </p>
+								<h2><%= name %></h2>
+								<p> <%= type%> event by <%= admin %> </p>
 								<a id="accept" class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>ATTENDING</span></a>
                                 <a id="decline" class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>NOT ATTENDING</span></a>
 							</div>
@@ -52,15 +54,9 @@
 							<div class="box">
 								<h3>Event Information</h3>
 								<ul class="qcTktFeatureList">
+								    <li>About: <%= description %></li>
                                     <li>Time: <%= time %></li>
-									<li><a data-toggle="tab"  original-title="">Location: <%=location%> <%=room%></a></li>		
-									<li>Remind Me
-                                <select name="ticket-quantity" id="ticket-quantity" class="requiredField">
-											<option value="">Time</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-								</select> before</li>
+									<li><a data-toggle="tab"  original-title="">Location: <%=location%> <%=room%></a></li>	
 								</ul>
 								
 							</div>
