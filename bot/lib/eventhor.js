@@ -110,7 +110,7 @@ EventhorBot.prototype._isFromEventhorBotBot = function (message) {
 EventhorBot.prototype._replyHelpMessage = function (user, channel) {
     var self = this;
     var text = 'Hey ' + user.name + '. Need help?\n' +
-        "Here are the available commands to you. Don't forget to always say write _eventhor_ before any command. \n" +
+        "Here are the available commands to you. Don't forget to always write _eventhor_ before any command. \n" +
         '>>> • _create event-name_ \n' +
         '• _invite event-name, list-usernames-comma-separated_ \n' +
         '• _accept event-name_ \n' +
