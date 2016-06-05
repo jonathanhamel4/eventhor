@@ -9,11 +9,11 @@
 <header id="qcTabTitle" class="qcContainer clearfix">
 		<!-- ## PAGE TITLE ## -->
 		<div class="title col-4 col">
-			<h1><input type="text" id="ticket-name" name="ticket-name" class="requiredField" value="<%= tagline %>"></h1>
+			<h1><input type="text" id="ticket-name" placeholder="Event Name" name="ticket-name" class="requiredField" value="<%= tagline %>"></h1>
 		</div>
 		<!-- ## PAGE DESC ## -->
 		<div class="col-8 col">
-			<input id="ticket-desc" type="text" class="qcTabDesc" value="<%= desc %>"> </div>
+			<input id="ticket-desc" placeholder="Event description" type="text" class="qcTabDesc" value="<%= desc%>"> </div>
 		</div>
 </header>
 
@@ -41,32 +41,28 @@
 					<div class="qcTicketBox clearfix">
 						<div class="qcTicketHead col-4 col" style="height: 338px;">
 							<div class="box">
-<<<<<<< HEAD
-								<h2 id="typeEvent"><input type="text" id="ticket-name" name="ticket-name" class="requiredField" value="<%= type %>"> </h2>
-								<div>Event by <%= admin %> </div>
-								<a class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>SAVE CHANGES</span></a>
-=======
-								<h2 id="typeEvent"><input type="text" id="ticket-name" name="ticket-name" class="requiredField" value="<%= type %>"> </h2>
-								<div>Event by <%= admin %> </div>
+
+								<h2 id="typeEvent"><input id="type-event" placeholder="Type of Event" type="text" id="ticket-name" name="ticket-name" class="requiredField" value="<%= type %>"> </h2>
+								<div id="admin">Event by <%= admin %> </div>
 								<a id="saveChanges" class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>SAVE CHANGES</span></a>
->>>>>>> f2a1b5c3b131152caab145584c414d134a194bfb
+
 							</div>
 						</div>
 						<div class="col-8 col" style="height: 338px;">
 							<div class="box">
 								<h3>Event Information</h3>
 								<ul class="qcTktFeatureList">
-                                    <li><div><input type="text" value="<%= time %>" style="margin-bottom:5px"> </div></li>
-									<li><div><input type="text" value="<%= location %>"> </div></li>		
+                                    <li><div><input id="event-time" placeholder="Date & Time" type="text" value="<%= time %>" style="margin-bottom:5px"> </div></li>
+									<li><div><input id="event-location" placeholder="Location" type="text" value="<%= location %>"> </div></li>		
 									<li>Remind Me
                                 <select name="ticket-quantity" id="ticket-quantity" class="requiredField">
 											<option value="">Time</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
-								</select> before</li>
+								</select> before</li>			
 								</ul>
-								
+								<h3 id="saveSuccess"></h3>
 							</div>
 						</div>
 					</div>
@@ -105,33 +101,41 @@
 			</div>
 
 			<!-- ## TAB 3 ## -->
-			<div id="tab-3" class="tab-pane fade">
-				<div class="box" style="">
-		
-		    		<!-- ## TICKET BOX 3 ## -->
+           <div id="tab-3" class="tab-pane fade in ">
+	    		<div class="box">
+		    		
+		    		<!-- ## TICKET BOX 1 ## -->
 					<div class="qcTicketBox clearfix">
 						<div class="qcTicketHead col-4 col" style="height: 338px;">
 							<div class="box">
-								<h2>SAVED!</h2>
-								<p>Choose a reminder time </p>
+
+								<h2><%= type %></h2>
+								<p>by <%= admin %> </p>
+								<a id="accept" class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>ATTENDING</span></a>
+                                <a id="decline" class="qcTicketAction" data-toggle="tab" href="#tag-3"><span>NOT ATTENDING</span></a>
+							</div>
+						</div>
+						<div class="col-8 col" style="height: 338px;">
+							<div class="box">
+								<h3>Event Information</h3>
+								<ul class="qcTktFeatureList">
+                                    <li>Time: <%= time %></li>
+									<li><a data-toggle="tab" original-title="">Location: <%=location%></a></li>		
+									<li>Remind Me
                                 <select name="ticket-quantity" id="ticket-quantity" class="requiredField">
 											<option value="">Time</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-8 col" style="height: 338px;">
-							<div class="box">
-								<h3>RSVP</h3>
-								<a class="qcTicketAction" href="#"><span>ATTENDING</span> </a>
-                                <a class="qcTicketAction" href="#"><span>NOT ATTENDING</span> </a>
+								</select> before</li>
+								</ul>
+								
 							</div>
 						</div>
 					</div>
-
+					
 				</div>
+	    	</div>
 		<!-- ## PAGE CONTENT TABS END ## -->
 	
 	</div>

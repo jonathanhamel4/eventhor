@@ -25,27 +25,22 @@ $(document).ready(function() {
    $('#saveChanges').click(function () {
        var eventName =  $('#ticket-name').val();
 	   var desc = $('#ticket-desc').val();
+	   var type = $('#type-event').val();
+	   var loc =  $('#event-location').val();
+	   var time= $('#event-time').val();
+	   var admin= $('#admin').val();
 	    $.ajax({
                   type:"POST",
                   url: "/save",
-                  data:{"eventName":eventName, "desc":desc},
+                  data:{"eventName":eventName, "desc":desc, "loc":loc,"type":type,"time":time},
                   dataType: "text",
-                  success: function(data) {
-                      
-                      var json = $.parseJSON(data);
-                      console.log(JSON.stringify(json));
+                  success: function(data) {        
+                      $('#saveSuccess').css({"color":"green", "border":"none"}).text("The changes have been saved succesfully!");
                   },
 
                   error: function(data) {
-                      
-                      var json = $.parseJSON(data);
-                      console.log("error");
+                      $('#saveSuccess').css({"color":"orange", "border":"none"}).text("The changes have not been saved!");
                   },
-                 complete: function(data) {
-                      
-                      var json = $.parseJSON(data);
-                      console.log("complete");
-                  }
               });
    });
    
@@ -124,6 +119,19 @@ body {
 
 #typeEvent input{
     width: 95%;
+}
+
+
+#saveSuccess{
+  margin-top:15px;
+}
+
+#saveSuccess .success{
+  color:#66CDAA !important;
+}
+
+#saveSuccess .error{
+  color:orange !important;	
 }
 
 /* ----------------------------------------------------------------*/
