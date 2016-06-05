@@ -1,18 +1,28 @@
 [
    {
-       "eventName":"Slackthon Dinner",
-       "eventId":"12324",
-       "location":"333 Richardson",
-       "room":"",
-       "type":"Dinner",
-       "participants":[{
-           "name":"",
-           "email":"",
-           "attending":""
-       }],
-       "maxParticipants":"12",
-       "time":"June 4, 2016",
-       "description":"Hello this is a Slackthon Dinner. Fuck off! ",
-       "reminderTime":"3"
+       "name": "Slackthon Dinner",
+       "id": "12324",
+       "location": "333 Richardson",
+       "room": "",
+       "type": "Dinner",
+       "participants": [
+           {
+               "name": "",
+               "attending": false
+           }
+       ],
+       "maxParticipants": "12",
+       "time": "2016-06-04 12:00:00",
+       "description": "Hello this is a Slackthon Dinner. Fuck off! ",
+       "reminderTime": {
+           "time": [
+               1,
+               2,
+               3,
+               4
+           ],
+           "isSet": true
+       },
+       "owner": "avinanda"
    }
 ]
