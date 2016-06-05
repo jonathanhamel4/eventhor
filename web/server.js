@@ -54,6 +54,7 @@ app.get('/event/:id/invite/:invitee', function (req, res) {
   var description = (jsonContent[id]["description"] || '');
   var room = (jsonContent[id]["room"] || '');
   var admin = (jsonContent[id]["owner"] || '');
+  var participants = (jsonContent[id]["participants"] || []);
   res.render('pages/index', {
     name: name,
     location: location,
@@ -62,7 +63,8 @@ app.get('/event/:id/invite/:invitee', function (req, res) {
     description: description,
     room: room,
     invitee: invitee,
-    admin: admin
+    admin: admin,
+    participants: participants
   });
 });
 

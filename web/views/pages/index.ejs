@@ -26,11 +26,12 @@
 			
 			<!-- ## TAB LINKS ## -->
 			<ul class="nav nav-tabs clearfix">
-				<li class="active">
+				<li class="active" style="border:none">
 					<a data-toggle="tab" href="#tab-1">EVENT</a>
 				</li>
-				<li  style="border-right:none;">
-					<a data-toggle="tab" href="#tab-2" >LOCATION</a>
+
+				<li style="border-right:none;">
+					<a data-toggle="tab" href="#tab-2">PARTICIPANTS</a>
 				</li>
     		</ul>
     		
@@ -65,28 +66,26 @@
 					
 				</div>
 	    	</div>
-	    	
-	    	<!-- ## TAB 2 ## -->
+			
 			<div id="tab-2" class="tab-pane fade">
-				<div class="box" style="">
+			<div class="box" style="">
 		
 		    		<!-- ## TICKET BOX 2 ## -->
 					<div class="qcTicketBox clearfix">
 						<div class="qcTicketHead col-4 col" style="height: 338px;">
 							<div class="box">
-								<h2>Location</h2>
-								<p>Address</p>
-								<a class="qcTicketAction" href="#"><span>$49 USD</span> Book Now</a>
+								<h2>Participants</h2>
+								<p>Currently registered users</p>
 							</div>
 						</div>
 						<div class="col-8 col" style="height: 338px;">
-							<div class="box">
-								<h3>Features</h3>
+							<div class="box" style="height:338px; overflow-y:auto;padding-top:0;">
 								<ul class="qcTktFeatureList">
-									<li>Lorem ipsum dolor sit amet</li>
-									<li><a href="#" class="tips" original-title="Lorem ipsum dolor sit amet, consectetur adipisicing elit">Consectetur</a> adipisicing elit</li>
-									<li>Natus autem <a href="#" class="tips" original-title="Lorem ipsum dolor sit amet, consectetur adipisicing elit">doloremque</a> alias <i>ducimus</i> eum minima</li>
-									<li>Iste nihil veritatis eius <i>voluptatum temporibus</i> ullam</li>
+									<%for ( var i = 0; i < participants.length; i++){%>
+										<% if(participants[i].name != '' && participants[i].attending == true){%>
+											<li style="font-size:20px"><%=participants[i].name%></li>
+											<%}%>
+									<%}%>
 								</ul>
 								
 							</div>
