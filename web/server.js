@@ -10,6 +10,7 @@ app.set('view engine', 'ejs');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
+app.use(express.static('public'));
 // parse application/json
 app.use(bodyParser.json())
 // use res.render to load up an ejs view file
